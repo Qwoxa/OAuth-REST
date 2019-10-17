@@ -20,6 +20,7 @@ const { MONGO_URI, PORT = 3000 } = process.env;
 app.use(cors());
 app.use(morgan('dev'));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))
 
 app.use('/users', require('./routes/users'));
 app.use(errorHelper);

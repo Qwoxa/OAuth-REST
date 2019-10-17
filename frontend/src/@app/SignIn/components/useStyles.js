@@ -25,9 +25,6 @@ export const useStyles = makeStyles(theme => ({
     margin: theme.spacing(3, 0, 2),
     padding: 10
   },
-  centered: {
-    textAlign: 'center'
-  },
   googleBtn: {
     "&:hover": {
       backgroundColor: "#dd4b39"
@@ -51,5 +48,9 @@ export const useStyles = makeStyles(theme => ({
   divider: {
     marginTop: theme.spacing(1),
     marginBottom: theme.spacing(2)
+  },
+  errorMessage: {
+    textAlign: 'center',
+    color: 'red'
   }
 }));

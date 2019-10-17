@@ -11,16 +11,13 @@ import FacebookIcon from './img/facebook.svg';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
-const SignIn = ({ login, loginError }) => {
+const SignIn = ({ signIn, errorMessage, oauthGoogle, oauthFacebook }) => {
   const classes = useStyles();
 
   
-  const responseGoogle = res => {
-    console.log(res);
-  };
-
-  const responseFacebook = res => {
-    console.log(res);
+  const responseService = service => async res => {
+    const oauthService = service === 'google' ? oauthGoogle : oauthFacebook;
+    await oauthService(res.accessToken);
   };
 
   return (
@@ -47,7 +44,7 @@ const SignIn = ({ login, loginError }) => {
                         .required('Password is required')
                 })}
                 onSubmit={({ email, password }) => {
-                    login(email, password);
+                    signIn({ email, password });
                 }}
             >
                 {({ errors, touched }) => {
@@ -86,7 +83,11 @@ const SignIn = ({ login, loginError }) => {
                         )}
                     </Field>
 
-                    <div className={classes.centered}>{loginError}</div>
+                    {errorMessage && (
+                        <div className={classes.errorMessage}>
+                            {errorMessage}
+                        </div>
+                    )}
 
                     <Button
                         type="submit"
@@ -110,7 +111,6 @@ const SignIn = ({ login, loginError }) => {
                 render={renderProps => (
                     <Button
                         onClick={renderProps.onClick}
-                        disabled={renderProps.disabled}
                         variant="contained"
                         className={classes.googleBtn}
                         fullWidth
@@ -119,15 +119,14 @@ const SignIn = ({ login, loginError }) => {
                         Continue with Google+
                     </Button>
                 )}
-                buttonText="Login"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
+                onSuccess={responseService('google')}
+                onFailure={responseService('google')}
             />
 
 
             <FacebookLogin
                 appId="960596594297510"
-                callback={responseFacebook}
+                callback={responseService('facebook')}
                 render={renderProps => (
                     <Button
                         onClick={renderProps.onClick}

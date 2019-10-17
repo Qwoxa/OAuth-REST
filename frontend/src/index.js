@@ -17,5 +17,3 @@ render(
     </Provider>,
     document.getElementById('root')
 );
-
-store.dispatch({ type: 'just_to_see_the_store' });

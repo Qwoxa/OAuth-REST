@@ -17,16 +17,19 @@ const SignIn = ({
     oauthFacebook,
     error,
     errorMessage,
-    history
+    history,
+    location
 }) => {
+  console.log(location);
   const classes = useStyles();
 
   const responseService = service => async res => {
     const oauthService = service === 'google' ? oauthGoogle : oauthFacebook;
     const response = await oauthService(res.accessToken);
-
-    if (!response.payload.error) { // if we got an error we will receive an object
-        history.push('/'); // TODO change redirect url
+    
+    if (!response.payload.error) {
+        const { from } = location.state || { from: { pathname: "/" } };
+        history.replace(from);
     }
   };
 

@@ -8,7 +8,7 @@ const AuthRoute = ({ component: Component, ...rest }) => (
 
         return (
             !token ? (
-                <Component {...props} />
+                <Component {...props} location={location} />
             ) : (
                 <Redirect
                     to="/"

@@ -11,13 +11,16 @@ import FacebookIcon from './img/facebook.svg';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
-const SignIn = ({ signIn, errorMessage, oauthGoogle, oauthFacebook }) => {
+const SignIn = ({ signIn, errorMessage, oauthGoogle, oauthFacebook, history }) => {
   const classes = useStyles();
 
   
   const responseService = service => async res => {
     const oauthService = service === 'google' ? oauthGoogle : oauthFacebook;
-    await oauthService(res.accessToken);
+    const response = await oauthService(res.accessToken);
+    if (!response.payload.error) {
+        history.push('/'); // TODO change redirect url
+    }
   };
 
   return (
@@ -43,8 +46,11 @@ const SignIn = ({ signIn, errorMessage, oauthGoogle, oauthFacebook }) => {
                     password: Yup.string()
                         .required('Password is required')
                 })}
-                onSubmit={({ email, password }) => {
-                    signIn({ email, password });
+                onSubmit={async ({ email, password }) => {
+                    const response = await signIn({ email, password });
+                    if (!response.payload.error) {
+                        history.push('/'); // TODO change redirect url
+                    }
                 }}
             >
                 {({ errors, touched }) => {

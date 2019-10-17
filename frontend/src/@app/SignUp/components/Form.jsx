@@ -19,9 +19,9 @@ import Copyright from './Copytight';
 
 const SignUp = ({
     signUp,
-    errorMessage
+    errorMessage,
+    history
 }) => {
-    console.log(errorMessage);
   const classes = useStyles();
 
   return (
@@ -53,7 +53,10 @@ const SignUp = ({
                   .required('Password confirm is required')
             })}
             onSubmit={async ({ email, password }) => {
-                await signUp({ email, password });
+                const response = await signUp({ email, password });
+                if (!response.payload.error) {
+                    history.push('/'); // TODO  change redirect url
+                }
             }}
       
         >
@@ -103,7 +106,8 @@ const SignUp = ({
                                 />
                             )}
                         </Field>
-
+                        
+                        {/* //! figure out to display error */}
                         {errorMessage && (
                             <div className={classes.errorMessage}>
                                 {errorMessage}

@@ -18,8 +18,13 @@ export default (state = defaultState, action) => {
     case auth.SIGN_UP_FAILURE:
       return {
         ...state,
-        errorMessage: action.payload
-      }
+        errorMessage: action.payload.message
+      };
+    case auth.SIGN_OUT:
+      return {
+        ...state,
+        isAuthenticated: false
+      };
     default:
       return state;
   }

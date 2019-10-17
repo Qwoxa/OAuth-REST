@@ -15,11 +15,11 @@ export const signUp = data => {
       const token = response.data.token;
 
       localStorage.setItem('token', token);
-      dispatch(signUpSuccess(token));
+      return dispatch(signUpSuccess(token));
 
     } catch(err) {
-      const msg = err.name === 'Network error' ? err.name : err.response.data.error.message;
-      dispatch(signUpFailure(msg));
+      const message = err.name === 'Network error' ? err.name : err.response.data.error.message;
+      return dispatch(signUpFailure({ message, error: true }));
     }
   };
 };
@@ -40,12 +40,22 @@ export const signIn = method => data => {
       const token = response.data.token;
 
       localStorage.setItem('token', token);
-      dispatch(signInSuccess(token));
+      return dispatch(signInSuccess(token));
 
     } catch (err) {
-      console.log(err.response);
-      const msg = err.name === 'Network error' ? err.name : err.response.data;
-      dispatch(signInFailure(msg));
+      const message = err.name === 'Network error' ? err.name : err.response.data;
+      return dispatch(signInFailure({ message, error: true }));
     }
-  }
+  };
+};
+
+
+const signOutCreator = createAction(auth.SIGN_OUT);
+
+export const signOut = () => {
+  return dispatch => {
+    localStorage.removeItem('token');
+
+    dispatch(signOutCreator());
+  };
 };

@@ -20,7 +20,7 @@ module.exports = {
         .map(() => {
             const firstName = faker.name.firstName();
             const title = faker.name.jobTitle();
-            const avatar = 'https://via.placeholder.com/100';
+            const avatar = 'https://via.placeholder.com/50';
             return { firstName, title, avatar };
         });
 

@@ -24,9 +24,10 @@ const SignIn = ({
   const responseService = service => async res => {
     const oauthService = service === 'google' ? oauthGoogle : oauthFacebook;
     const response = await oauthService(res.accessToken);
-    if (typeof response.payload === 'string') { // if we got an error we will receive an object
-        history.push('/'); // TODO change redirect url
-    }
+    console.log(response);
+    // if (typeof response.payload === 'string') { // if we got an error we will receive an object
+    //     history.push('/'); // TODO change redirect url
+    // }
   };
 
   return (

@@ -5,6 +5,7 @@ const token = localStorage.getItem('token');
 const defaultState = {
   isAuthenticated: Boolean(token),
   errorMessage: '',
+  error: '',
   token
 };
 
@@ -15,13 +16,17 @@ export default (state = defaultState, action) => {
       return {
         isAuthenticated: true,
         token: action.payload,
-        errorMessage: ''
+        errorMessage: '',
+        error: ''
       };
     case auth.SIGN_IN_FAILURE:
     case auth.SIGN_UP_FAILURE:
       return {
         ...state,
-        errorMessage: action.payload.message
+        errorMessage: action.payload.message,
+        error: action.type === auth.SIGN_IN_FAILURE 
+          ? 'signin'
+          : 'signup'
       };
     case auth.SIGN_OUT:
       return {

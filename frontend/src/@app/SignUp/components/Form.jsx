@@ -18,6 +18,7 @@ import Copyright from './Copytight';
 
 
 const SignUp = ({
+    error,
     signUp,
     errorMessage,
     history
@@ -107,8 +108,7 @@ const SignUp = ({
                             )}
                         </Field>
                         
-                        {/* //! figure out to display error */}
-                        {errorMessage && (
+                        {error === 'signup' && (
                             <div className={classes.errorMessage}>
                                 {errorMessage}
                             </div>

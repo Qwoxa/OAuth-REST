@@ -1,59 +1,36 @@
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form, Field } from 'formik';
-import { Button, TextField, Typography, Avatar, CssBaseline, Container } from '@material-ui/core';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import * as Yup from 'yup';
+import { TextField, Button } from '@material-ui/core';
 import { useStyles } from './useStyles';
+import * as Yup from 'yup';
 
-import GoogleIcon from './img/google.png';
-import FacebookIcon from './img/facebook.svg';
-import GoogleLogin from 'react-google-login';
-import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 
-const SignIn = ({ signIn, errorMessage, oauthGoogle, oauthFacebook, history }) => {
-  const classes = useStyles();
+const SignInForm = ({ error, errorMessage, signIn, history }) => {
+    const classes = useStyles();
 
-  
-  const responseService = service => async res => {
-    const oauthService = service === 'google' ? oauthGoogle : oauthFacebook;
-    const response = await oauthService(res.accessToken);
-    if (!response.payload.error) {
-        history.push('/'); // TODO change redirect url
-    }
-  };
-
-  return (
-        <Container component="main" maxWidth="xs">
-          <CssBaseline>
-              <div className={classes.paper}>
-
-            <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
-            </Avatar>
-            <Typography component="h1" variant="h5">
-                Sign in
-            </Typography>
-            <Formik
-                initialValues={{
-                    email: '',
-                    password: ''
-                }}
-                validationSchema={Yup.object({
-                    email: Yup.string()
-                        .email('Invalid email!')
-                        .required('Email is required'),
-                    password: Yup.string()
-                        .required('Password is required')
-                })}
-                onSubmit={async ({ email, password }) => {
-                    const response = await signIn({ email, password });
-                    if (!response.payload.error) {
-                        history.push('/'); // TODO change redirect url
-                    }
-                }}
-            >
-                {({ errors, touched }) => {
+    return (
+        <Formik
+            initialValues={{
+                email: '',
+                password: ''
+            }}
+            validationSchema={Yup.object({
+                email: Yup.string()
+                    .email('Invalid email!')
+                    .required('Email is required'),
+                password: Yup.string()
+                    .required('Password is required')
+            })}
+            onSubmit={async ({ email, password }) => {
+                const response = await signIn({ email, password });
+                if (!response.payload.error) {
+                    history.push('/'); // TODO change redirect url
+                }
+            }}
+        >
+            {({ errors, touched }) => {
                 return (
                     <Form className={classes.form}>
                     <Field name="email">
@@ -89,7 +66,7 @@ const SignIn = ({ signIn, errorMessage, oauthGoogle, oauthFacebook, history }) =
                         )}
                     </Field>
 
-                    {errorMessage && (
+                    {error === 'signin' && (
                         <div className={classes.errorMessage}>
                             {errorMessage}
                         </div>
@@ -106,60 +83,16 @@ const SignIn = ({ signIn, errorMessage, oauthGoogle, oauthFacebook, history }) =
                     </Button>
                     </Form>
                 );
-                }}
-            </Formik>
-        
-            <div className={classes.divider}>OR</div>
-
-
-            <GoogleLogin
-                clientId="416292981239-7ui23lk1v8ia6rhb5n9n0h43goipmrn7.apps.googleusercontent.com"
-                render={renderProps => (
-                    <Button
-                        onClick={renderProps.onClick}
-                        variant="contained"
-                        className={classes.googleBtn}
-                        fullWidth
-                    >
-                        <Avatar alt="Google+ logo" src={GoogleIcon}/>
-                        Continue with Google+
-                    </Button>
-                )}
-                onSuccess={responseService('google')}
-                onFailure={responseService('google')}
-            />
-
-
-            <FacebookLogin
-                appId="960596594297510"
-                callback={responseService('facebook')}
-                render={renderProps => (
-                    <Button
-                        onClick={renderProps.onClick}
-                        variant="contained"
-                        className={classes.facebookBtn}
-                        fullWidth
-                    >
-                        <Avatar alt="Facebook logo" src={FacebookIcon} />
-                        Continue with Facebook
-                    </Button>
-                )}
-            />
-
-
-            </div>
-        </CssBaseline>
-    </Container>
-  );
+            }}
+        </Formik>
+    );
 };
 
-SignIn.defaultProps = {
-  loginError: ''
+SignInForm.propTypes = {
+    error: PropTypes.string.isRequired,
+    errorMessage: PropTypes.string.isRequired,
+    signIn: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired 
 };
 
-// SignIn.propTypes = {
-//   login: PropTypes.func.isRequired,
-//   loginError: PropTypes.string
-// };
-
-export default SignIn;
+export default SignInForm;

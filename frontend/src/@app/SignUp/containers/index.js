@@ -5,7 +5,8 @@ import SignUpComponent from '../components';
 
 export default connect(
   state => ({
-    errorMessage: state.auth.errorMessage
+    errorMessage: state.auth.errorMessage,
+    error: state.auth.error
   }),
   { signUp }
 )(SignUpComponent);

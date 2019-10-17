@@ -142,8 +142,10 @@ const SignUp = ({
 };
 
 SignUp.propTypes = {
+    error: PropTypes.string.isRequired,
+    errorMessage: PropTypes.string.isRequired,
     signUp: PropTypes.func.isRequired,
-    errorMessage: PropTypes.string.isRequired
+    history: PropTypes.object.isRequired
 };
 
 export default SignUp;

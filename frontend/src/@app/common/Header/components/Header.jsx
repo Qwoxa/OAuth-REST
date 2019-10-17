@@ -11,8 +11,16 @@ const useStyles = makeStyles({
 });
 
 
-const ButtonAppBar = ({ isAuthenticated, signOut }) => {
+const ButtonAppBar = ({ isAuthenticated, signOut, history, location }) => {
   const classes = useStyles();
+
+  const handleSignOut = () => {
+    signOut();
+
+    if (location.pathname !== '/') {
+      history.push('/signin');
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -35,7 +43,7 @@ const ButtonAppBar = ({ isAuthenticated, signOut }) => {
           )}
 
           {isAuthenticated && (
-            <Button color="inherit" onClick={signOut}>
+            <Button color="inherit" onClick={handleSignOut}>
                 Logout
             </Button>
           )}
@@ -51,7 +59,9 @@ const ButtonAppBar = ({ isAuthenticated, signOut }) => {
 
 ButtonAppBar.propTypes = {
     isAuthenticated: PropTypes.bool.isRequired,
-    signOut: PropTypes.func.isRequired
+    signOut: PropTypes.func.isRequired,
+    history: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired
 };
 
 export default ButtonAppBar;

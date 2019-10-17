@@ -1,8 +1,11 @@
 import { auth } from '../constants';
+
+
+const token = localStorage.getItem('token');
 const defaultState = {
-  isAuthenticated: false,
-  token: '',
-  errorMessage: ''
+  isAuthenticated: Boolean(token),
+  errorMessage: '',
+  token
 };
 
 export default (state = defaultState, action) => {
@@ -23,6 +26,7 @@ export default (state = defaultState, action) => {
     case auth.SIGN_OUT:
       return {
         ...state,
+        token: null,
         isAuthenticated: false
       };
     default:

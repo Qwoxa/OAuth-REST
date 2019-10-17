@@ -1,21 +1,28 @@
 {
-  "name": "building_api",
+  "name": "oauth-rest",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "install-packages-server": "npm install --prefix backend",
+    "install-packages-client": "npm install --prefix frontend",
     "start-server": "npm start --prefix backend",
-    "start-client": "npm start --prefix frontend"
+    "start-client": "npm start --prefix frontend",
+    "install-packages": "npm run install-packages-server && npm run install-packages-client",
+    "start": "concurrently \"npm run start-client\" \"npm run start-server\""
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Qwoxa/auth.git"
+    "url": "git+https://github.com/Qwoxa/OAuth-REST.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [""],
+  "author": "Nick Dyson",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Qwoxa/auth/issues"
+    "url": "https://github.com/Qwoxa/OAuth-REST/issues"
   },
-  "homepage": "https://github.com/Qwoxa/auth#readme"
+  "homepage": "https://github.com/Qwoxa/OAuth-REST#readme",
+  "dependencies": {
+    "concurrently": "^5.0.0"
+  }
 }

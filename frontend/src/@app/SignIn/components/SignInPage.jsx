@@ -8,6 +8,7 @@ import GoogleIcon from './img/google.png';
 import FacebookIcon from './img/facebook.svg';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+import { googleId, facebookId } from '../../../oauth';
 import SignInForm from './Form';
 
 const SignIn = ({
@@ -52,7 +53,7 @@ const SignIn = ({
 
 
             <GoogleLogin
-                clientId="416292981239-7ui23lk1v8ia6rhb5n9n0h43goipmrn7.apps.googleusercontent.com"
+                clientId={googleId}
                 render={renderProps => (
                     <Button
                         onClick={renderProps.onClick}
@@ -70,7 +71,7 @@ const SignIn = ({
 
 
             <FacebookLogin
-                appId="960596594297510"
+                appId={facebookId}
                 callback={responseService('facebook')}
                 render={renderProps => (
                     <Button

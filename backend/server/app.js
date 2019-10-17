@@ -22,6 +22,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }))
 
+app.use('/', require('./routes/content'));
 app.use('/users', require('./routes/users'));
 app.use(errorHelper);
 

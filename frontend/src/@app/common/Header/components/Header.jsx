@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { AppBar, Toolbar, Typography, Button } from '@material-ui/core';
-
-import CustomLink from './CustomLink';
+import CustomLink from './CustomLink.jsx';
 
 const useStyles = makeStyles({
   root: { flexGrow: 1 },
-  heading: { flexGrow: 1 }
+  heading: { flexGrow: 1 },
+  headingLink: { textDecoration: 'none', color: 'inherit' }
 });
 
 
@@ -27,7 +28,9 @@ const ButtonAppBar = ({ isAuthenticated, signOut, history, location }) => {
       <AppBar position="static">
         <Toolbar>
             <Typography variant="h6" className={classes.heading}>
-                DysonOAuth
+                <Link to="/" className={classes.headingLink}>
+                  DysonOAuth
+                </Link>
             </Typography>
             
           {!isAuthenticated && (
@@ -39,6 +42,12 @@ const ButtonAppBar = ({ isAuthenticated, signOut, history, location }) => {
           {!isAuthenticated && (
             <CustomLink to="/signup">
                 Sign up
+            </CustomLink>
+          )}
+
+          {isAuthenticated && (
+            <CustomLink to="/protected">
+              Secret
             </CustomLink>
           )}
 

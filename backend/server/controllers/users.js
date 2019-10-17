@@ -30,11 +30,5 @@ module.exports = {
 
     signIn: async(req, res, next) => {
         res.status(201).json({ token: signToken(req.user.id) });
-    },
-
-    secret: async(req, res, next) => {
-        res.status(200).json({
-            info: 'secret'
-        });
-    },
+    }
 };

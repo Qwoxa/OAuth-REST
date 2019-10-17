@@ -16,6 +16,7 @@
     "dotenv": "^8.1.0",
     "express": "^4.17.1",
     "express-promise-router": "^3.0.3",
+    "faker": "^4.1.0",
     "http-errors": "^1.7.3",
     "joi": "^14.3.1",
     "jsonwebtoken": "^8.5.1",

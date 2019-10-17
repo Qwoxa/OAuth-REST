@@ -6,11 +6,14 @@ import rootReducer from './reducers';
 
 const checkTokenExpirationMiddleware = store => next => action => {
   const token = localStorage.getItem('token');
-  if (jwtDecode(token).exp < Date.now() / 1000) {
+  if (!token) {
+    next(action);
+  } else if (jwtDecode(token).exp < Date.now() / 1000) {
     next(action);
     localStorage.clear();
+  } else {
+    next(action);
   }
-  next(action);
 };
 
 export default createStore(

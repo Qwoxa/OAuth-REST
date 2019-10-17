@@ -7,12 +7,12 @@ import rootReducer from './reducers';
 const checkTokenExpirationMiddleware = store => next => action => {
   const token = localStorage.getItem('token');
   if (!token) {
-    next(action);
+    return next(action);
   } else if (jwtDecode(token).exp < Date.now() / 1000) {
-    next(action);
     localStorage.clear();
+    return next(action);
   } else {
-    next(action);
+    return next(action);
   }
 };
 

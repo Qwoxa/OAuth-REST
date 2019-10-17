@@ -10,7 +10,7 @@ const CustomCard = ({ firstName, title, avatar }) => {
         <Card className={classes.card}>
             <CardContent className={classes.cardContent}>
                 <Avatar src={avatar} alt={firstName} className={classes.cardAvatar}/>
-                <div className={classes.cardTextContent}>
+                <div>
                     <Typography color="textSecondary" gutterBottom>
                         {firstName}
                     </Typography>

@@ -7,18 +7,17 @@ export const useStyles = makeStyles(theme =>({
     },
     cardContainer: {
         display: 'flex',
-        flexFlow: 'row wrap'
+        flexFlow: 'row wrap',
+        justifyContent: 'center'
     },
     card: {
-        width: '49%',
+        width: '40%',
         margin: 5
     },
     cardContent: {
         display: 'flex',
-        flexFlox: 'row wrap'
-    },
-    cartTextContent: {
-        paddingLeft: 20
+        flexFlox: 'row wrap',
+        alignItems: 'center'
     },
     cardAvatar: {
         width: 50,

@@ -58,6 +58,8 @@ const SignIn = ({
 
             <GoogleLogin
                 clientId={googleId}
+                onSuccess={responseService('google')}
+                onFailure={responseService('google')}
                 render={renderProps => (
                     <Button
                         onClick={renderProps.onClick}
@@ -69,8 +71,6 @@ const SignIn = ({
                         Continue with Google+
                     </Button>
                 )}
-                onSuccess={responseService('google')}
-                onFailure={responseService('google')}
             />
 
 
